@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { FaCss3Alt, FaHtml5, FaJsSquare, FaNodeJs, FaReact } from "react-icons/fa";
+import { SiNextdotjs } from "react-icons/si";
 
 export default function Hero() {
     return (
@@ -18,7 +20,7 @@ export default function Hero() {
             {/* Subtle background */}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(25,213,197,0.08),transparent_30%)]" />
 
-            <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] items-center px-6 py-24 lg:px-12">
+            <div className="relative z-10 mx-auto flex min-h-screen max-w-10/12 items-center px-6 py-24 lg:px-12">
                 <div className="grid w-full items-center gap-14 lg:grid-cols-2 lg:gap-16">
 
                     {/* ================= LEFT CONTENT ================= */}
@@ -93,71 +95,109 @@ export default function Hero() {
 
                     </div>
 
-                    {/* ================= RIGHT IMAGE ================= */}
+                    {/* ================= RIGHT PROFILE VISUAL ================= */}
+                    {/* ================= PROFILE VISUAL ================= */}
                     <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, scale: 0.85 }}
+                        animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.9, delay: 0.2 }}
-                        className="flex items-center justify-center lg:justify-end"
+                        className="relative mx-auto flex h-[430px] w-full max-w-[560px] items-center justify-center sm:h-[500px]"
                     >
-                        <div className="relative w-full max-w-[560px]">
+                        {/* Soft background glow */}
+                        <div className="pointer-events-none absolute h-[280px] w-[280px] rounded-full bg-[#19d5c5]/10 blur-[90px] sm:h-[350px] sm:w-[350px]" />
 
-                            {/* Glow behind image */}
-                            <div className="absolute inset-8 rounded-[30px] bg-[#19d5c5]/15 blur-[60px]" />
-
-                            {/* Image card */}
-                            <div className="relative overflow-hidden rounded-[26px] border border-[#254244] bg-[#081719] p-3 shadow-[0_25px_80px_rgba(0,0,0,0.45)]">
-
-                                {/* Fake window header */}
-                                <div className="flex h-10 items-center gap-2 px-3">
-                                    <span className="h-3 w-3 rounded-full bg-[#ff6258]" />
-                                    <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
-                                    <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-
-                                    <span className="ml-3 text-xs font-medium text-[#72888a]">
-                                        Saiful Islam — Portfolio
-                                    </span>
-                                </div>
-
-                                {/* Actual image */}
-                                <div className="relative overflow-hidden rounded-[20px] border border-[#19d5c5]/20 bg-[#0b2021]">
-                                    <Image
-                                        src="/images/soaus.png"
-                                        alt="Saiful Islam"
-                                        width={900}
-                                        height={1000}
-                                        priority
-                                        className="h-[470px] w-full object-cover object-top transition-transform duration-700 hover:scale-[1.02]"
-                                    />
-
-                                    {/* Bottom gradient */}
-                                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#031011]/90 via-[#031011]/30 to-transparent" />
-
-                                    {/* Small label */}
-                                    <div className="absolute bottom-5 left-5 rounded-xl border border-[#19d5c5]/30 bg-[#071819]/90 px-4 py-2 backdrop-blur-md">
-                                        <p className="text-sm font-semibold text-[#5ceee1]">
-                                            Full-Stack Developer
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Floating badge */}
-                            <motion.div
-                                animate={{ y: [0, -8, 0] }}
-                                transition={{
-                                    duration: 3,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                }}
-                                className="absolute -bottom-5 -left-5 rounded-2xl border border-[#19d5c5]/30 bg-[#071819]/95 px-5 py-3 shadow-[0_15px_40px_rgba(0,0,0,0.4)] backdrop-blur-md"
-                            >
-                                <p className="text-xs text-[#829a9c]">Currently</p>
-                                <p className="font-bold text-[#5ceee1]">
-                                    Open to Opportunities
-                                </p>
-                            </motion.div>
+                        {/* ================= PROFILE IMAGE ================= */}
+                        {/* ================= PROFILE IMAGE ================= */}
+                        <div className="relative z-10 h-[260px] w-[260px] overflow-hidden rounded-full border border-[#19d5c5]/20 bg-[#020708] shadow-[0_0_70px_rgba(25,213,197,0.12)] sm:h-[340px] sm:w-[340px]">
+                            <Image
+                                src="/images/soaus.png"
+                                alt="Saiful Islam"
+                                width={700}
+                                height={700}
+                                priority
+                                className="h-full w-full object-cover object-top"
+                            />
                         </div>
+
+                        {/* ================= TECHNOLOGY ICONS ================= */}
+
+                        {/* HTML */}
+                        <motion.div
+                            animate={{ y: [0, -8, 0] }}
+                            transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                            className="absolute z-20 left-[4%] top-[38%] flex h-12 w-12 items-center justify-center rounded-2xl border border-[#19d5c5]/20 bg-[#081819]/90 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md sm:left-[5%] sm:h-16 sm:w-16"
+                        >
+                            <FaHtml5 className="text-2xl text-[#e44d26] sm:text-3xl" />
+                        </motion.div>
+
+                        {/* CSS */}
+                        <motion.div
+                            animate={{ y: [0, 8, 0] }}
+                            transition={{
+                                duration: 3.4,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                            className="absolute z-20 left-[18%] top-[7%] flex h-12 w-12 items-center justify-center rounded-2xl border border-[#19d5c5]/20 bg-[#081819]/90 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md sm:left-[20%] sm:h-16 sm:w-16"
+                        >
+                            <FaCss3Alt className="text-2xl text-[#1572b6] sm:text-3xl" />
+                        </motion.div>
+
+                        {/* React */}
+                        <motion.div
+                            animate={{ y: [0, -9, 0] }}
+                            transition={{
+                                duration: 3.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                            className="absolute z-20 right-[17%] top-[6%] flex h-12 w-12 items-center justify-center rounded-2xl border border-[#19d5c5]/20 bg-[#081819]/90 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md sm:right-[19%] sm:h-16 sm:w-16"
+                        >
+                            <FaReact className="text-2xl text-[#61dafb] sm:text-3xl" />
+                        </motion.div>
+
+                        {/* JavaScript */}
+                        <motion.div
+                            animate={{ y: [0, 8, 0] }}
+                            transition={{
+                                duration: 3.2,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                            className="absolute z-20 bottom-[9%] left-[18%] flex h-12 w-12 items-center justify-center rounded-2xl border border-[#19d5c5]/20 bg-[#081819]/90 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md sm:bottom-[7%] sm:left-[20%] sm:h-16 sm:w-16"
+                        >
+                            <FaJsSquare className="text-2xl text-[#f7df1e] sm:text-3xl" />
+                        </motion.div>
+
+                        {/* Node.js */}
+                        <motion.div
+                            animate={{ y: [0, -8, 0] }}
+                            transition={{
+                                duration: 3.7,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                            className="absolute z-20 right-[4%] top-[39%] flex h-12 w-12 items-center justify-center rounded-2xl border border-[#19d5c5]/20 bg-[#081819]/90 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md sm:right-[5%] sm:h-16 sm:w-16"
+                        >
+                            <FaNodeJs className="text-2xl text-[#68a063] sm:text-3xl" />
+                        </motion.div>
+
+                        {/* Next.js */}
+                        <motion.div
+                            animate={{ y: [0, 7, 0] }}
+                            transition={{
+                                duration: 3.6,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                            className="absolute z-20 bottom-[10%] right-[18%] flex h-12 w-12 items-center justify-center rounded-2xl border border-[#19d5c5]/20 bg-[#081819]/90 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-md sm:bottom-[8%] sm:right-[20%] sm:h-16 sm:w-16"
+                        >
+                            <SiNextdotjs className="text-2xl text-white sm:text-3xl" />
+                        </motion.div>
                     </motion.div>
                 </div>
             </div>
