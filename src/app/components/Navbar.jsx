@@ -6,17 +6,47 @@ import { motion, AnimatePresence } from "framer-motion";
 const navItems = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
+    { name: "Education", href: "#education" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
     { name: "Contact", href: "#contact" },
-    { name: "Education", href: "#education" },
+    
 ];
 
 export default function Navbar() {
+
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleNavClick = () => {
+    // smooth scroll
+    
+    const handleNavClick = (e, target) => {
+        e.preventDefault();
+
+        const element = document.querySelector(target);
+
+        if (!element) return;
+
+        const lenis = window.__lenis;
+
+        // Close mobile menu
         setIsOpen(false);
+
+        if (lenis) {
+            // Close animation শেষ হওয়ার জন্য একটু সময়
+            setTimeout(() => {
+                lenis.scrollTo(element, {
+                    offset: -80,
+                    duration: 1.5,
+                });
+            }, 150);
+        } else {
+            setTimeout(() => {
+                element.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+            }, 150);
+        }
     };
 
     return (
@@ -32,7 +62,7 @@ export default function Navbar() {
                     {/* Brand */}
                     <a
                         href="#home"
-                        onClick={handleNavClick}
+                        onClick={(e) => handleNavClick(e, "#home")}
                         className="group flex items-center"
                     >
                         <span className="text-[28px] font-bold tracking-tight text-white transition-colors duration-300 group-hover:text-[#2dd4bf]">
@@ -46,6 +76,7 @@ export default function Navbar() {
                             <a
                                 key={item.name}
                                 href={item.href}
+                                onClick={(e) => handleNavClick(e, item.href)}
                                 className="relative text-[17px] font-medium text-[#b7c7c9] transition-colors duration-300 hover:text-[#2dd4bf]"
                             >
                                 {item.name}
@@ -59,6 +90,7 @@ export default function Navbar() {
                     <div className="hidden md:flex items-center">
                         <a
                             href="#contact"
+                            onClick={(e) => handleNavClick(e, "#contact")}
                             className="inline-flex items-center justify-center rounded-2xl bg-[#2dd4bf] px-8 py-3 text-[17px] font-bold text-[#061113] shadow-[0_8px_30px_rgba(45,212,191,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#5eead4] hover:shadow-[0_10px_35px_rgba(45,212,191,0.30)]"
                         >
                             Hire Me
@@ -105,7 +137,7 @@ export default function Navbar() {
                                     <motion.a
                                         key={item.name}
                                         href={item.href}
-                                        onClick={handleNavClick}
+                                        onClick={(e) => handleNavClick(e, item.href)}
                                         initial={{ opacity: 0, x: -15 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{

@@ -9,16 +9,9 @@ export default function Hero() {
     return (
         <section
             id="home"
-            className="relative min-h-screen overflow-hidden bg-[#031011] text-white pt-12"
+            className="relative min-h-screen overflow-hidden  text-white pt-12"
         >
-            {/* Background glow - top right */}
-            <div className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full bg-[#19d5c5]/10 blur-[120px]" />
-
-            {/* Background glow - bottom left */}
-            <div className="pointer-events-none absolute -bottom-40 -left-40 h-[450px] w-[450px] rounded-full bg-[#19d5c5]/8 blur-[120px]" />
-
-            {/* Subtle background */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(25,213,197,0.08),transparent_30%)]" />
+            
 
             <div className="relative z-10 mx-auto flex min-h-screen max-w-10/12 items-center px-6 py-24 lg:px-12">
                 <div className="grid w-full items-center gap-14 lg:grid-cols-2 lg:gap-16">
