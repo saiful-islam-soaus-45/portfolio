@@ -3,21 +3,44 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaCss3Alt, FaHtml5, FaJsSquare, FaNodeJs, FaReact } from "react-icons/fa";
+import { FiDownload, FiFolder, FiMail } from "react-icons/fi";
 import { SiNextdotjs } from "react-icons/si";
 
 export default function Hero() {
+    // smooth scroll
+    const handleNavClick = (e, target) => {
+    e.preventDefault();
+
+    const element = document.querySelector(target);
+
+    if (!element) return;
+
+    const lenis = window.__lenis;
+
+    if (lenis) {
+        lenis.scrollTo(element, {
+            offset: -80,
+            duration: 2,
+        });
+    } else {
+        element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    }
+};
     return (
         <section
             id="home"
             className="relative min-h-screen overflow-hidden  text-white pt-12"
         >
-            
 
-            <div className="relative z-10 mx-auto flex min-h-screen max-w-10/12 items-center px-6 py-24 lg:px-12">
+
+            <div className="relative z-10 mx-auto flex min-h-screen max-w-[1200px] lg:max-w-10/12 items-center px-6 py-24 lg:px-12">
                 <div className="grid w-full items-center gap-14 lg:grid-cols-2 lg:gap-16">
 
                     {/* ================= LEFT CONTENT ================= */}
-                    <div className="flex flex-col items-start">
+                    <div className="order-2 flex flex-col items-start lg:order-1">
 
                         {/* Small badge */}
                         <motion.div
@@ -38,9 +61,11 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 35 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.75, delay: 0.1 }}
-                            className="max-w-[700px] text-[40px] font-extrabold leading-[0.98] tracking-[-2.5px] sm:text-[64px] lg:text-[76px]"
+                            className="max-w-[700px] self-center text-center text-[40px] font-extrabold leading-[0.98] tracking-[-2.5px] sm:text-[64px] lg:self-start lg:text-left lg:text-[76px]"
                         >
-                            Saiful Islam <span className="bg-gradient-to-r from-[#19d5c5] to-[#9bf5ed] bg-clip-text text-transparent">Soaus.
+                            Saiful Islam{" "}
+                            <span className="bg-gradient-to-r from-[#19d5c5] to-[#9bf5ed] bg-clip-text text-transparent">
+                                Soaus.
                             </span>
                         </motion.h1>
 
@@ -49,39 +74,47 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 25 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7, delay: 0.2 }}
-                            className="mt-8 max-w-[700px] text-lg leading-8 text-[#9db3b5] sm:text-xl"
-                        >
-                            I&apos;m Saiful Islam Soaus, a Computer Science and Engineering student
-                            and aspiring full-stack developer. I build responsive,
-                            user-friendly web applications using modern technologies and
-                            continuously improve my skills through real-world projects.
+                            className="mt-8 max-w-[700px] text-lg text-center  leading-8 text-[#9db3b5] lg:text-xl"
+                        >Computer Science and Engineering graduate and aspiring full-stack developer,focused on building fast, scalable, responsive, and user-friendly web applications with modern technologies.
                         </motion.p>
 
+                    
                         {/* Buttons */}
                         <motion.div
                             initial={{ opacity: 0, y: 25 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7, delay: 0.3 }}
-                            className="mt-9 flex flex-wrap gap-4"
+                            className="mt-9 grid grid-cols-2 gap-3 lg:flex lg:flex-wrap lg:gap-4"
                         >
-                            {/* Hire Me */}
+                            {/* Download Resume */}
                             <a
-                                href="#contact"
-                                className="group inline-flex h-[64px] items-center justify-center rounded-2xl bg-gradient-to-r from-[#20d8c7] to-[#18c4b5] px-9 text-lg font-bold text-[#021312] shadow-[0_10px_35px_rgba(25,213,197,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_45px_rgba(25,213,197,0.4)]"
+                                href="/images/resume.pdf"
+                                download
+                                className="group inline-flex h-[56px] items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#20d8c7] to-[#18c4b5] px-5 text-base font-bold text-[#021312] shadow-[0_10px_35px_rgba(25,213,197,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_45px_rgba(25,213,197,0.4)] lg:px-6"
                             >
+                                <FiDownload className="text-lg transition-transform duration-300 group-hover:-translate-y-1" />
                                 <span>Download Resume</span>
-
-                                <span className="ml-3 text-xl transition-transform duration-300 group-hover:translate-x-1">
-                                    →
-                                </span>
                             </a>
 
-                            {/*  contact */}
+                            {/* Contact Me */}
                             <a
                                 href="#contact"
-                                className="inline-flex h-[64px] items-center justify-center rounded-2xl border border-[#19d5c5]/60 bg-transparent px-9 text-lg font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#19d5c5]/10"
+                                onClick={(e) => handleNavClick(e, "#contact")}
+                                className="inline-flex h-[56px] items-center justify-center gap-2 rounded-2xl border border-[#19d5c5]/60 bg-transparent px-5 text-base font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#19d5c5]/10 lg:px-6"
                             >
-                                Contact Me
+                                <FiMail className="text-lg" />
+                                <span>Contact Me</span>
+                            </a>
+
+                            {/* Projects */}
+                            <a
+                                href="#projects"
+                                onClick={(e) => handleNavClick(e, "#projects")}
+
+                                className="col-span-2 mx-auto inline-flex h-[56px] items-center justify-center gap-2 rounded-2xl border border-[#19d5c5]/60 bg-[#19d5c5]/5 px-7 text-base font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#19d5c5]/15 lg:mx-0 lg:px-7"
+                            >
+                                <FiFolder className="text-lg" />
+                                <span>Projects</span>
                             </a>
                         </motion.div>
 
@@ -94,7 +127,7 @@ export default function Hero() {
                         initial={{ opacity: 0, scale: 0.85 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.9, delay: 0.2 }}
-                        className="relative mx-auto flex h-[430px] w-full max-w-[560px] items-center justify-center sm:h-[500px]"
+                        className="relative order-1 mx-auto -mt-15 flex h-[430px] w-full max-w-[560px] items-center justify-center h-[500px] lg:order-2 lg:mt-0"
                     >
                         {/* Soft background glow */}
                         <div className="pointer-events-none absolute h-[280px] w-[280px] rounded-full bg-[#19d5c5]/10 blur-[90px] sm:h-[350px] sm:w-[350px]" />

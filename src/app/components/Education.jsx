@@ -28,7 +28,7 @@ export default function Education() {
                         Academic Background
                     </p>
 
-                    <h2 className="text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
+                    <h2 className="text-4xl font-extrabold text-white sm:text-5xl lg:text-6xl">
                         My <span className="text-[#2dd4bf]">Education</span>
                     </h2>
 
@@ -88,7 +88,7 @@ export default function Education() {
                                 </div>
 
                                 <p className="text-sm text-[#91a4a7]">
-                                    JSC
+                                    Sakhipur PM Pilot High School,Tangail.
                                 </p>
 
                                 <div className="mt-3 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
@@ -114,7 +114,7 @@ export default function Education() {
                                 </div>
 
                                 <p className="text-sm text-[#91a4a7]">
-                                    Sakhipur PM Pilot High School
+                                    Sakhipur PM Pilot High School, Tangail.
                                 </p>
 
                                 <div className="mt-3 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
@@ -140,7 +140,7 @@ export default function Education() {
                                 </div>
 
                                 <p className="text-sm text-[#91a4a7]">
-                                    Science • Sakhipur PM Pilot High School
+                                    B.A.F Shaheen College, (Tejgaon), Dhaka.
                                 </p>
 
                                 <div className="mt-3 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
@@ -229,7 +229,7 @@ export default function Education() {
 
                                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
                                     <p className="text-xs uppercase tracking-widest text-[#718487]">
-                                        Field
+                                        Department
                                     </p>
 
                                     <p className="mt-2 text-base font-semibold text-white">

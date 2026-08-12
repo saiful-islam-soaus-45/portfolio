@@ -47,10 +47,7 @@ export default function About() {
       id="about"
       className="relative overflow-hidden  py-24 text-white sm:py-32"
     >
-      {/* Background Glow */}
-      <div className="pointer-events-none absolute -left-40 top-20 h-[350px] w-[350px] rounded-full bg-[#19d5c5]/5 blur-[120px]" />
-
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-[400px] w-[400px] rounded-full bg-[#19d5c5]/5 blur-[130px]" />
+      
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-6 lg:px-10">
 
