@@ -9,26 +9,26 @@ import { SiNextdotjs } from "react-icons/si";
 export default function Hero() {
     // smooth scroll
     const handleNavClick = (e, target) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    const element = document.querySelector(target);
+        const element = document.querySelector(target);
 
-    if (!element) return;
+        if (!element) return;
 
-    const lenis = window.__lenis;
+        const lenis = window.__lenis;
 
-    if (lenis) {
-        lenis.scrollTo(element, {
-            offset: -80,
-            duration: 2,
-        });
-    } else {
-        element.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-        });
-    }
-};
+        if (lenis) {
+            lenis.scrollTo(element, {
+                offset: -80,
+                duration: 2,
+            });
+        } else {
+            element.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        }
+    };
     return (
         <section
             id="home"
@@ -78,7 +78,7 @@ export default function Hero() {
                         >Computer Science and Engineering graduate and aspiring full-stack developer,focused on building fast, scalable, responsive, and user-friendly web applications with modern technologies.
                         </motion.p>
 
-                    
+
                         {/* Buttons */}
                         <motion.div
                             initial={{ opacity: 0, y: 25 }}
@@ -90,10 +90,10 @@ export default function Hero() {
                             <a
                                 href="/images/resume.pdf"
                                 download
-                                className="group inline-flex h-[56px] items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#20d8c7] to-[#18c4b5] px-5 text-base font-bold text-[#021312] shadow-[0_10px_35px_rgba(25,213,197,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_45px_rgba(25,213,197,0.4)] lg:px-6"
+                                className="group inline-flex h-[56px] items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-gradient-to-r from-[#20d8c7] to-[#18c4b5] px-5 text-base font-bold text-[#021312] shadow-[0_10px_35px_rgba(25,213,197,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_45px_rgba(25,213,197,0.4)] lg:px-6"
                             >
-                                <FiDownload className="text-lg transition-transform duration-300 group-hover:-translate-y-1" />
-                                <span>Download Resume</span>
+                                <FiDownload className="shrink-0 text-lg transition-transform duration-300 group-hover:-translate-y-1" />
+                                <span className="whitespace-nowrap">Download Resume</span>
                             </a>
 
                             {/* Contact Me */}
