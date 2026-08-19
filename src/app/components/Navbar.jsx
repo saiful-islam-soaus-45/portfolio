@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
@@ -16,6 +16,8 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("#home");
 
+    const sidebarRef = useRef(null);
+
     // Detect active section while scrolling
     useEffect(() => {
         const sections = navItems
@@ -28,7 +30,8 @@ export default function Navbar() {
                     .filter((entry) => entry.isIntersecting)
                     .sort(
                         (a, b) =>
-                            b.intersectionRatio - a.intersectionRatio
+                            b.intersectionRatio -
+                            a.intersectionRatio
                     )[0];
 
                 if (visibleSection) {
@@ -43,10 +46,38 @@ export default function Navbar() {
             }
         );
 
-        sections.forEach((section) => observer.observe(section));
+        sections.forEach((section) =>
+            observer.observe(section)
+        );
 
         return () => observer.disconnect();
     }, []);
+
+    // Close sidebar when clicking outside
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const handleOutsideClick = (event) => {
+            if (
+                sidebarRef.current &&
+                !sidebarRef.current.contains(event.target)
+            ) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener(
+            "pointerdown",
+            handleOutsideClick
+        );
+
+        return () => {
+            document.removeEventListener(
+                "pointerdown",
+                handleOutsideClick
+            );
+        };
+    }, [isOpen]);
 
     // Smooth scroll
     const handleNavClick = (e, target) => {
@@ -56,10 +87,9 @@ export default function Navbar() {
 
         if (!element) return;
 
-        // Set active immediately on click
         setActiveSection(target);
 
-        // Close mobile menu
+        // Close mobile sidebar
         setIsOpen(false);
 
         window.history.pushState(null, "", target);
@@ -67,7 +97,6 @@ export default function Navbar() {
         const lenis = window.__lenis;
 
         if (lenis) {
-            // Close animation শেষ হওয়ার জন্য একটু সময়
             setTimeout(() => {
                 lenis.scrollTo(element, {
                     offset: -80,
@@ -88,16 +117,22 @@ export default function Navbar() {
         <motion.header
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{
+                duration: 0.6,
+                ease: "easeOut",
+            }}
             className="fixed top-0 left-0 right-0 z-50"
         >
             <nav className="h-[80px] w-full border-b border-cyan-400/10 bg-[#061113]/95 backdrop-blur-md">
+
                 <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-6 lg:px-10 xl:px-12">
 
                     {/* Brand */}
                     <a
                         href="#home"
-                        onClick={(e) => handleNavClick(e, "#home")}
+                        onClick={(e) =>
+                            handleNavClick(e, "#home")
+                        }
                         className="group flex items-center"
                     >
                         <span className="text-[28px] font-bold tracking-tight text-white transition-colors duration-300 group-hover:text-[#2dd4bf]">
@@ -116,7 +151,10 @@ export default function Navbar() {
                                     key={item.name}
                                     href={item.href}
                                     onClick={(e) =>
-                                        handleNavClick(e, item.href)
+                                        handleNavClick(
+                                            e,
+                                            item.href
+                                        )
                                     }
                                     className={`relative text-[17px] font-medium transition-colors duration-300 ${
                                         isActive
@@ -139,11 +177,14 @@ export default function Navbar() {
                     </div>
 
                     {/* Hire Me Button */}
-                    <div className="hidden md:flex items-center">
+                    <div className="hidden items-center md:flex">
                         <a
                             href="#contact"
                             onClick={(e) =>
-                                handleNavClick(e, "#contact")
+                                handleNavClick(
+                                    e,
+                                    "#contact"
+                                )
                             }
                             className="inline-flex items-center justify-center rounded-2xl bg-[#2dd4bf] px-8 py-3 text-[17px] font-bold text-[#061113] shadow-[0_8px_30px_rgba(45,212,191,0.20)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#5eead4] hover:shadow-[0_10px_35px_rgba(45,212,191,0.30)]"
                         >
@@ -154,12 +195,15 @@ export default function Navbar() {
                     {/* Mobile Menu Button */}
                     <button
                         type="button"
-                        onClick={() => setIsOpen(!isOpen)}
+                        onClick={() =>
+                            setIsOpen((prev) => !prev)
+                        }
                         aria-label="Toggle navigation menu"
                         aria-expanded={isOpen}
                         className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-[#0a181a] text-[#2dd4bf] transition-all duration-300 hover:border-cyan-400/40 hover:bg-[#0d2022] md:hidden"
                     >
                         <div className="flex w-5 flex-col gap-1.5">
+
                             <span
                                 className={`h-[2px] w-full rounded-full bg-current transition-all duration-300 ${
                                     isOpen
@@ -170,7 +214,9 @@ export default function Navbar() {
 
                             <span
                                 className={`h-[2px] w-full rounded-full bg-current transition-all duration-300 ${
-                                    isOpen ? "opacity-0" : ""
+                                    isOpen
+                                        ? "opacity-0"
+                                        : ""
                                 }`}
                             />
 
@@ -181,79 +227,115 @@ export default function Navbar() {
                                         : ""
                                 }`}
                             />
+
                         </div>
                     </button>
                 </div>
-
-                {/* Mobile Navigation */}
-                <AnimatePresence>
-                    {isOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{
-                                opacity: 1,
-                                height: "auto",
-                            }}
-                            exit={{
-                                opacity: 0,
-                                height: 0,
-                            }}
-                            transition={{
-                                duration: 0.3,
-                                ease: "easeInOut",
-                            }}
-                            className="overflow-hidden border-b border-cyan-400/10 bg-[#061113]/98 backdrop-blur-md md:hidden"
-                        >
-                            <div className="mx-auto flex max-w-[1400px] flex-col px-6 py-5">
-                                {navItems.map((item, index) => {
-                                    const isActive =
-                                        activeSection === item.href;
-
-                                    return (
-                                        <motion.a
-                                            key={item.name}
-                                            href={item.href}
-                                            onClick={(e) =>
-                                                handleNavClick(
-                                                    e,
-                                                    item.href
-                                                )
-                                            }
-                                            initial={{
-                                                opacity: 0,
-                                                x: -15,
-                                            }}
-                                            animate={{
-                                                opacity: 1,
-                                                x: 0,
-                                            }}
-                                            transition={{
-                                                duration: 0.25,
-                                                delay:
-                                                    index * 0.05,
-                                            }}
-                                            className={`relative border-b border-white/5 py-4 text-base font-medium transition-colors duration-300 last:border-b-0 ${
-                                                isActive
-                                                    ? "text-[#2dd4bf]"
-                                                    : "text-[#b7c7c9] hover:text-[#2dd4bf]"
-                                            }`}
-                                        >
-                                            {item.name}
-
-                                            {isActive && (
-                                                <motion.span
-                                                    layoutId="mobileActive"
-                                                    className="absolute bottom-2 left-0 h-[2px] w-8 rounded-full bg-[#2dd4bf]"
-                                                />
-                                            )}
-                                        </motion.a>
-                                    );
-                                })}
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
             </nav>
+
+            {/* Mobile Sidebar */}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.aside
+                        ref={sidebarRef}
+                        initial={{ x: "100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "100%" }}
+                        transition={{
+                            duration: 0.35,
+                            ease: [0.4, 0, 0.2, 1],
+                        }}
+                        className="fixed right-0 top-[80px] z-[60] h-[calc(100vh-80px)] w-[280px] overflow-y-auto border-l border-cyan-400/10 bg-[#061113]/98 shadow-[-10px_0_40px_rgba(0,0,0,0.35)] backdrop-blur-md md:hidden"
+                    >
+                        <div className="flex min-h-full flex-col px-6 py-5">
+
+                            {/* Sidebar Navigation */}
+                            <div className="flex flex-col">
+                                {navItems.map(
+                                    (item, index) => {
+                                        const isActive =
+                                            activeSection ===
+                                            item.href;
+
+                                        return (
+                                            <motion.a
+                                                key={
+                                                    item.name
+                                                }
+                                                href={
+                                                    item.href
+                                                }
+                                                onClick={(e) =>
+                                                    handleNavClick(
+                                                        e,
+                                                        item.href
+                                                    )
+                                                }
+                                                initial={{
+                                                    opacity: 0,
+                                                    x: 20,
+                                                }}
+                                                animate={{
+                                                    opacity: 1,
+                                                    x: 0,
+                                                }}
+                                                transition={{
+                                                    duration: 0.25,
+                                                    delay:
+                                                        index *
+                                                        0.05,
+                                                }}
+                                                className={`relative border-b border-white/5 py-5 text-[17px] font-medium transition-colors duration-300 ${
+                                                    isActive
+                                                        ? "text-[#2dd4bf]"
+                                                        : "text-[#b7c7c9] hover:text-[#2dd4bf]"
+                                                }`}
+                                            >
+                                                {item.name}
+
+                                                {isActive && (
+                                                    <motion.span
+                                                        layoutId="mobileActive"
+                                                        className="absolute bottom-3 left-0 h-[2px] w-8 rounded-full bg-[#2dd4bf]"
+                                                    />
+                                                )}
+                                            </motion.a>
+                                        );
+                                    }
+                                )}
+                            </div>
+
+                            {/* Mobile Hire Me */}
+                            <motion.a
+                                href="#contact"
+                                onClick={(e) =>
+                                    handleNavClick(
+                                        e,
+                                        "#contact"
+                                    )
+                                }
+                                initial={{
+                                    opacity: 0,
+                                    y: 10,
+                                }}
+                                animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                }}
+                                transition={{
+                                    duration: 0.25,
+                                    delay:
+                                        navItems.length *
+                                        0.05,
+                                }}
+                                className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-[#2dd4bf] px-6 py-3 text-[16px] font-bold text-[#061113] shadow-[0_8px_30px_rgba(45,212,191,0.20)] transition-all duration-300 hover:bg-[#5eead4]"
+                            >
+                                Hire Me
+                            </motion.a>
+                        </div>
+                    </motion.aside>
+                )}
+            </AnimatePresence>
         </motion.header>
     );
 }
