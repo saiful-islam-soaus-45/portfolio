@@ -59,7 +59,7 @@ export default function Navbar() {
         // Set active immediately on click
         setActiveSection(target);
 
-        // Close mobile menu
+        // Close mobile sidebar
         setIsOpen(false);
 
         window.history.pushState(null, "", target);
@@ -67,7 +67,6 @@ export default function Navbar() {
         const lenis = window.__lenis;
 
         if (lenis) {
-            // Close animation শেষ হওয়ার জন্য একটু সময়
             setTimeout(() => {
                 lenis.scrollTo(element, {
                     offset: -80,
@@ -138,8 +137,8 @@ export default function Navbar() {
                         })}
                     </div>
 
-                    {/* Hire Me Button */}
-                    <div className="hidden md:flex items-center">
+                    {/* Desktop Hire Me Button */}
+                    <div className="hidden items-center md:flex">
                         <a
                             href="#contact"
                             onClick={(e) =>
@@ -185,72 +184,112 @@ export default function Navbar() {
                     </button>
                 </div>
 
-                {/* Mobile Navigation */}
+                {/* Mobile Sidebar */}
                 <AnimatePresence>
                     {isOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{
-                                opacity: 1,
-                                height: "auto",
-                            }}
-                            exit={{
-                                opacity: 0,
-                                height: 0,
-                            }}
-                            transition={{
-                                duration: 0.3,
-                                ease: "easeInOut",
-                            }}
-                            className="overflow-hidden border-b border-cyan-400/10 bg-[#061113]/98 backdrop-blur-md md:hidden"
-                        >
-                            <div className="mx-auto flex max-w-[1400px] flex-col px-6 py-5">
-                                {navItems.map((item, index) => {
-                                    const isActive =
-                                        activeSection === item.href;
+                        <>
+                            {/* Background Overlay */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.25 }}
+                                onClick={() => setIsOpen(false)}
+                                className="fixed inset-0 top-[80px] bg-black/50 backdrop-blur-[2px] md:hidden"
+                            />
 
-                                    return (
-                                        <motion.a
-                                            key={item.name}
-                                            href={item.href}
-                                            onClick={(e) =>
-                                                handleNavClick(
-                                                    e,
-                                                    item.href
-                                                )
-                                            }
-                                            initial={{
-                                                opacity: 0,
-                                                x: -15,
-                                            }}
-                                            animate={{
-                                                opacity: 1,
-                                                x: 0,
-                                            }}
-                                            transition={{
-                                                duration: 0.25,
-                                                delay:
-                                                    index * 0.05,
-                                            }}
-                                            className={`relative border-b border-white/5 py-4 text-base font-medium transition-colors duration-300 last:border-b-0 ${
-                                                isActive
-                                                    ? "text-[#2dd4bf]"
-                                                    : "text-[#b7c7c9] hover:text-[#2dd4bf]"
-                                            }`}
-                                        >
-                                            {item.name}
+                            {/* Right Sidebar */}
+                            <motion.div
+                                initial={{ x: "100%" }}
+                                animate={{ x: 0 }}
+                                exit={{ x: "100%" }}
+                                transition={{
+                                    duration: 0.35,
+                                    ease: [0.4, 0, 0.2, 1],
+                                }}
+                                className="fixed right-0 top-[80px] z-50 h-[calc(100vh-80px)] w-[280px] overflow-y-auto border-l border-cyan-400/10 bg-[#061113]/98 shadow-[-10px_0_40px_rgba(0,0,0,0.35)] backdrop-blur-md md:hidden"
+                            >
+                                <div className="flex min-h-full flex-col px-6 py-5">
 
-                                            {isActive && (
-                                                <motion.span
-                                                    layoutId="mobileActive"
-                                                    className="absolute bottom-2 left-0 h-[2px] w-8 rounded-full bg-[#2dd4bf]"
-                                                />
-                                            )}
-                                        </motion.a>
-                                    );
-                                })}
-                            </div>
-                        </motion.div>
+                                    {/* Sidebar Navigation */}
+                                    <div className="flex flex-col">
+                                        {navItems.map((item, index) => {
+                                            const isActive =
+                                                activeSection ===
+                                                item.href;
+
+                                            return (
+                                                <motion.a
+                                                    key={item.name}
+                                                    href={item.href}
+                                                    onClick={(e) =>
+                                                        handleNavClick(
+                                                            e,
+                                                            item.href
+                                                        )
+                                                    }
+                                                    initial={{
+                                                        opacity: 0,
+                                                        x: 20,
+                                                    }}
+                                                    animate={{
+                                                        opacity: 1,
+                                                        x: 0,
+                                                    }}
+                                                    transition={{
+                                                        duration: 0.25,
+                                                        delay:
+                                                            index * 0.05,
+                                                    }}
+                                                    className={`relative border-b border-white/5 py-5 text-[17px] font-medium transition-colors duration-300 ${
+                                                        isActive
+                                                            ? "text-[#2dd4bf]"
+                                                            : "text-[#b7c7c9] hover:text-[#2dd4bf]"
+                                                    }`}
+                                                >
+                                                    {item.name}
+
+                                                    {/* Active Indicator */}
+                                                    {isActive && (
+                                                        <motion.span
+                                                            layoutId="mobileActive"
+                                                            className="absolute bottom-3 left-0 h-[2px] w-8 rounded-full bg-[#2dd4bf]"
+                                                        />
+                                                    )}
+                                                </motion.a>
+                                            );
+                                        })}
+                                    </div>
+
+                                    {/* Mobile Hire Me Button */}
+                                    <motion.a
+                                        href="#contact"
+                                        onClick={(e) =>
+                                            handleNavClick(
+                                                e,
+                                                "#contact"
+                                            )
+                                        }
+                                        initial={{
+                                            opacity: 0,
+                                            y: 10,
+                                        }}
+                                        animate={{
+                                            opacity: 1,
+                                            y: 0,
+                                        }}
+                                        transition={{
+                                            duration: 0.25,
+                                            delay:
+                                                navItems.length * 0.05,
+                                        }}
+                                        className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-[#2dd4bf] px-6 py-3 text-[16px] font-bold text-[#061113] shadow-[0_8px_30px_rgba(45,212,191,0.20)] transition-all duration-300 hover:bg-[#5eead4]"
+                                    >
+                                        Hire Me
+                                    </motion.a>
+                                </div>
+                            </motion.div>
+                        </>
                     )}
                 </AnimatePresence>
             </nav>

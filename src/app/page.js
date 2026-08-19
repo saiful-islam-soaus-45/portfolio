@@ -12,10 +12,11 @@ import Contact from "./components/Contact";
 export default function Home() {
   return (
     <SmoothScroll>
-      <div className="relative min-h-screen bg-[#031011] isolate">
+      <div className="relative min-h-screen bg-[#f5fafa] dark:bg-[#031011] isolate">
         <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+
           {/* Main Background */}
-          <div className="absolute inset-0 bg-[#031011]" />
+          <div className="absolute inset-0 bg-[#f5fafa] dark:bg-[#031011]" />
 
           {/* Top Right Glow */}
           <div className="absolute -right-40 -top-40 h-[550px] w-[550px] rounded-full bg-[#19d5c5]/10 blur-[120px]" />
@@ -39,9 +40,9 @@ export default function Home() {
           <Hero />
           <About />
           <Education />
-          <Skills></Skills>
-          <Projects></Projects>
-          <Contact></Contact>
+          <Skills />
+          <Projects />
+          <Contact />
         </main>
       </div>
     </SmoothScroll>
