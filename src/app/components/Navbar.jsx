@@ -272,7 +272,7 @@ export default function Navbar() {
                             duration: 0.35,
                             ease: [0.4, 0, 0.2, 1],
                         }}
-                        className="fixed right-0 top-[80px] z-[95] h-[calc(100vh-80px)] w-[280px] overflow-y-auto border-l border-cyan-400/10 bg-[#061113]/98 shadow-[-10px_0_40px_rgba(0,0,0,0.35)] backdrop-blur-md md:hidden"
+                        className="fixed right-0 top-[80px] z-[95] h-[calc(100vh-80px)] w-[280px] overflow-y-auto border-l border-cyan-400/10 bg-[#061113]/95 shadow-[-10px_0_40px_rgba(0,0,0,0.35)] backdrop-blur-md md:hidden"
                     >
                         <div className="flex min-h-full flex-col px-6 py-5">
 
